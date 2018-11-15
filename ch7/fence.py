@@ -1,5 +1,3 @@
-
-
 def solve(left, right, heights):
 	if left == right:
 		return heights[left]
