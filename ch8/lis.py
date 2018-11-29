@@ -7,7 +7,7 @@ def lis(start):
 		if start == -1 or S(start) < S(next_):
 			ret = max(ret, lis(next_) + 1)
 
-	cache[start] = ret
+	cache[start + 1] = ret
 	return ret
 
 def S(start):
