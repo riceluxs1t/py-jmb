@@ -1,15 +1,15 @@
+SIZE_OF_BOARD = 5
 board = []
 dx = [-1, -1, -1, 1, 1, 1, 0, 0]
 dy = [-1, 0, 1, -1, 0, 1, -1, 1]
 
-def inRange(y, x):
-    if x < 0 or y < 0 or x > 4 or y > 4:
-        return False
-    return True
+
+def in_range(y, x):
+    return x >= 0 and y >= 0 and x <= 4 and y <= 4
 
 
-def hasWord(y, x, word):
-    if not inRange(y, x):
+def has_word(y, x, word):
+    if not in_range(y, x):
         return False
     if board[y][x] != word[0]:
         return False
@@ -18,30 +18,28 @@ def hasWord(y, x, word):
     for direction in xrange(8):
         nextY = y + dy[direction]
         nextX = x + dx[direction]
-        if hasWord(nextY, nextX, word[1:]):
+        if has_word(nextY, nextX, word[1:]):
             return True
     return False
 
 
 C = input()
 for _ in xrange(C):
-    for i in xrange(5):
-        a = list(raw_input())
-        board.append(a)
+    for __ in xrange(SIZE_OF_BOARD):
+        board.append(raw_input().strip())
     N = input()
-    for l in range(N):
-        s = raw_input()
-        alreadyfound = False
-        for j in xrange(5):
-            if alreadyfound:
-                break
-            for k in xrange(5):
-                if alreadyfound:
+    for __ in range(N):
+        word_to_find = raw_input().strip()
+        already_found = False
+        for y in xrange(SIZE_OF_BOARD):
+            for x in xrange(SIZE_OF_BOARD):
+                if has_word(y, x, word_to_find):
+                    print word_to_find, 'YES'
+                    already_found = True
                     break
-                if hasWord(j, k, s):
-                    print s, 'YES'
-                    alreadyfound = True
-                    break
-        if not alreadyfound:
-            print s, 'NO'
+            else:
+                continue
+            break
+        if not already_found:
+            print word_to_find, 'NO'
                 
