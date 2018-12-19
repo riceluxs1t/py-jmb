@@ -1,4 +1,7 @@
 from collections import defaultdict
+import sys
+
+sys.setrecursionlimit(10000)
 
 def classify(a, b):
 	M = N[a : b + 1]
