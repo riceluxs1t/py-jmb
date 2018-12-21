@@ -7,13 +7,8 @@ def precalc():
 		p_square_sum.append(p_square_sum[i - 1] + (A[i] * A[i]))
 
 def min_error(lo, hi):
-	sum_ = p_sum[hi]
-	if lo != 0:
-		sum_ = sum_ - p_sum[lo - 1]
-
-	square_sum = p_square_sum[hi]
-	if lo != 0:
-		square_sum = square_sum - p_square_sum[lo - 1]
+	sum_ = p_sum[hi] - (0 if lo == 0 else p_sum[lo - 1])
+	square_sum = p_square_sum[hi] - (0 if lo == 0 else p_square_sum[lo - 1])
 
 	m = int(0.5 + float(sum_) / (hi - lo + 1))
 
