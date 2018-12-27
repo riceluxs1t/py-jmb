@@ -12,7 +12,7 @@ def hugs(members, fans):
 		if fans[i] == 'M':
 			bList[m - i - 1] = 1
 
-	cList = multiply(aList, bList)
+	cList = karatsuba(aList, bList)
 	all_hugs = 0
 
 	for i in xrange(n - 1, m):
@@ -87,7 +87,7 @@ def subFrom(aList, bList):
 def multiply(aList, bList):
 	n = len(bList)
 	m = len(aList)
-	
+
 	c = [0] * (m + n + 1)
 
 	for i in xrange(m):
@@ -102,4 +102,3 @@ for _ in xrange(C):
 	members = raw_input().strip()
 	fans = raw_input().strip()
 	print hugs(members, fans)
-
