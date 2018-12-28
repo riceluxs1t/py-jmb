@@ -15,4 +15,4 @@ C = input()
 for _ in xrange(C):
 	n = input()
 	cache = {}
-	print tiling(n) % MOD
+	print tiling(n)
