@@ -6,17 +6,26 @@ def lst4(num, num_lis):
         num_lis += 1
         return num_lis
 
-    lo = 0
-    hi = num_lis - 1
+    # lo ~ hi is the floor ~ ceiling interval for possible answers to the problem.
+    lo = -1
+    hi = num_lis # in this case, num_lis may also represent the size of cache.
     
-    # binary search
-    while lo <= hi:
+    # invariant 1: lo < hi.
+    # Since hi can be 0 when num_lis = 0, lo starts with -1.
+    
+    # invariant 2: cache[lo] < x <= cache[hi].
+
+    
+    # binary search to locate the position 'hi' closest to (and always greater or equal to) given num.
+    while lo + 1 < hi:
         mid = (lo + hi) / 2
         if cache[mid] < num:
-            lo = mid + 1
+            lo = mid
         else:
-            hi = mid - 1
-    cache[hi + 1] = num
+            hi = mid
+
+    # save num in the 'hi'th position in cache instead of 'lo'th position due to invariant 2.
+    cache[hi] = num
     
     return num_lis
 
@@ -24,6 +33,8 @@ def lst4(num, num_lis):
 C = input()
 for _ in xrange(C):
     N = input()
+    # cache[i] refers to the lowest among last values of increasing subsequences
+    # of length 'i' that we made so far.
     cache = {}
     S = map(int, raw_input().strip().split())
     
