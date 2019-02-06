@@ -1,4 +1,4 @@
-MOD = 10*1000*1000
+MOD = 10 * 1000 * 1000
 
 def poly(n, first):
     if n == first:
