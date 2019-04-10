@@ -1,6 +1,6 @@
 def search(path):
     """
-    완전탐색
+    Complete Search
     """
 
     if len(path) == d + 1:
@@ -23,7 +23,7 @@ def search(path):
 
 def search2(here, days):
     """
-    메모이제이션: search2(here, days) = 두니발 박사가 days일 째에 here번 마을에 숨어 있을 때, 마지막 날에 q번 마을에 있을 조건부 확률
+    Memoization: search2(here, days) = the probability of Dr. Dunibal hiding in "q"th village, given that Dr. Dunibal hides in "here"th village on "days" day,
     """
 
     if days == d:
@@ -45,7 +45,7 @@ def search2(here, days):
 
 def search3(here, days):
     """
-    메모이제이션: search3(here, days) = 탈옥 후 days 째에 두니발 박사가 here번 마을에 숨어 있을 확률
+    Memoization: search3(here, days) = the probability of Dr. Dunibal hiding in "here"th village, given that "days" days have passed since jailbrek.
     """
 
     if days == 0:
