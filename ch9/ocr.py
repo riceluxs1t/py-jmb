@@ -36,22 +36,42 @@ def reconstruct(segment, previousMatch):
 
 m, q = map(int, raw_input().strip().split())
 corpus = raw_input().strip().split()
+
 B = map(float, raw_input().strip().split())
 
-for num in B:
-    if num != 0:
-        num = log(num)
+for i in xrange(m):
+    if B[i] != 0:
+        B[i] = log(B[i])
+    else:
+        B[i] = float('-inf')
 
 T = []
 for i in xrange(m + 1):
     if i == 0:
         T.append(B)
+
     else:
-        T.append(map(log, map(float, raw_input().strip().split())))
+        C = map(float, raw_input().strip().split())
+        for j in xrange(m):
+            if C[j] != 0:
+                C[j] = log(C[j])
+            else:
+                C[i] = float('-inf')
+        T.append(C)
 
 M = []
-for _ in xrange(m + 1):
-    M.append(map(log, map(float, raw_input().strip().split())))
+for _ in xrange(m):
+    D = map(float, raw_input().strip().split())
+    for i in xrange(m):
+        if D[i] != 0:
+            D[i] = log(D[i])
+        else:
+            D[i] = float('-inf')
+    M.append(D)
+
+print B
+print T
+print M
 
 for _ in xrange(q):
     choice = {}
