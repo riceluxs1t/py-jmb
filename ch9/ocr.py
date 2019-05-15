@@ -12,7 +12,7 @@ def recognize(segment, previousMatch):
     ret = -1e200
 
     for thisMatch in xrange(m):
-        cand = T[previousMatch][thisMatch] + M[thisMatch][R[segment]] + recognize(segment + 1, thisMatch)
+        cand = T[previousMatch][thisMatch] + M[thisMatch][R[segment]] + recognize(segment + 1, thisMatch + 1)
 
         if ret < cand:
             ret = cand
@@ -27,9 +27,10 @@ def reconstruct(segment, previousMatch):
     ret = corpus[choose]
 
     if segment < n - 1:
-        ret = ret + " " + reconstruct(segment + 1, choose)
+        ret = ret + " " + reconstruct(segment + 1, choose + 1)
 
     return ret
+
 
 
 
@@ -38,54 +39,34 @@ m, q = map(int, raw_input().strip().split())
 corpus = raw_input().strip().split()
 
 B = map(float, raw_input().strip().split())
-
 for i in xrange(m):
-    if B[i] != 0:
-        B[i] = log(B[i])
-    else:
-        B[i] = float('-inf')
+    B[i] = float('-inf') if B[i] == 0 else log(B[i])
 
 T = []
-for i in xrange(m + 1):
-    if i == 0:
-        T.append(B)
-
-    else:
-        C = map(float, raw_input().strip().split())
-        for j in xrange(m):
-            if C[j] != 0:
-                C[j] = log(C[j])
-            else:
-                C[i] = float('-inf')
-        T.append(C)
+T.append(B)
+for i in xrange(m):
+    C = map(float, raw_input().strip().split())
+    for j in xrange(m):
+        C[j] = float('-inf') if C[j] == 0 else log(C[j])
+    T.append(C)
 
 M = []
 for _ in xrange(m):
     D = map(float, raw_input().strip().split())
     for i in xrange(m):
-        if D[i] != 0:
-            D[i] = log(D[i])
-        else:
-            D[i] = float('-inf')
+        D[i] = float('-inf') if D[i] == 0 else log(D[i])
     M.append(D)
 
-print B
-print T
-print M
 
 for _ in xrange(q):
-    choice = {}
+    choice = defaultdict(lambda: 1)
     cache = defaultdict(lambda: 1)
 
     input_sentence = raw_input().strip().split()
     n = int(input_sentence[0])
     input_sentence = input_sentence[1:]
 
-    R = []
-
-    for word in input_sentence:
-        if word in corpus:
-            R.append(corpus.index(word))
+    R = [corpus.index(i) for i in input_sentence]
 
     recognize(0, 0)
     print reconstruct(0, 0)
